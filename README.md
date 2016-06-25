@@ -1,2 +1,2 @@
 # pyspc
-Python Library for statistical process control charts (SPC)
+Python Library for Statistical Process Control Charts (SPC)
