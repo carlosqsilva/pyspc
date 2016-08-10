@@ -1,21 +1,38 @@
+#!/usr/bin/python3
+#
+#Copyright (C) 2016  Carlos Henrique Silva <carlosqsilva@outlook.com>
+#
+#This library is free software: you can redistribute it and/or modify
+#it under the terms of the GNU General Public License as published by
+#the Free Software Foundation, either version 3 of the License, or
+#(at your option) any later version.
+#
+#This library is distributed in the hope that it will be useful,
+#but WITHOUT ANY WARRANTY; without even the implied warranty of
+#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#GNU General Public License for more details.
+#
+#You should have received a copy of the GNU General Public License
+#along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 from setuptools import setup, find_packages
 
 setup(name='pyspc',
-      version='0.1.0',
+      version='0.2.1',
       description='Library to plot control charts',
       long_description='Statistical Process Control for Humans',
       url='https://github.com/carlosqsilva/pyspc',
       author='Carlos Silva',
       author_email='carlosqsilva@outlook.com',
       license='GPLv3',
-      packages=find_packages(),
+      packages=find_packages() + ['tests'],
       package_dir={ "pyspc": "pyspc" },
       package_data={
       "pyspc": ["sampledata/*.csv"]},
-      install_requires=['pandas', 'matplotlib', 'numpy',],
-      keywords='SPC CEQ CEP UEPA',
+      install_requires=['pandas', 'matplotlib', 'numpy', 'scipy'],
+      keywords='SPC QCC CEQ CEP UEPA',
       classifiers=[
-      'Development Status :: 3 - Alpha',
+      'Development Status :: 4 - Beta',
       'Intended Audience :: Developers',
       'Intended Audience :: Science/Research',
       'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',

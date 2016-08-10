@@ -1,4 +1,20 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/python3
+#
+#Copyright (C) 2016  Carlos Henrique Silva <carlosqsilva@outlook.com>
+#
+#This library is free software: you can redistribute it and/or modify
+#it under the terms of the GNU General Public License as published by
+#the Free Software Foundation, either version 3 of the License, or
+#(at your option) any later version.
+#
+#This library is distributed in the hope that it will be useful,
+#but WITHOUT ANY WARRANTY; without even the implied warranty of
+#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#GNU General Public License for more details.
+#
+#You should have received a copy of the GNU General Public License
+#along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 from .ccharts import ccharts
 import numpy as np
 
@@ -9,7 +25,7 @@ class ewma(ccharts):
         self.target = target
         self.weight = weight
     
-    def plot(self, ax, data, size):
+    def plot(self, ax, data, size, newdata=None):
         assert ((self.weight > 0) and (self.weight < 1))
         
         if size > 1:
@@ -18,18 +34,16 @@ class ewma(ccharts):
         target = self.target
         weight = self.weight
         
-        #calculate the target with not given
+        # calculate the target with not given
         if target is None:
             target = np.mean(data)
 
         # calculate the standard deviation
         rbar = []
-        std = 0
         for i in range(len(data) - 1):
             rbar.append(abs(data[i] - data[i + 1]))
         std = np.mean(rbar)/1.128
-        
-                
+                        
         ewma = [] #values
         i = target
         for x in data:
@@ -41,10 +55,10 @@ class ewma(ccharts):
             lcl.append(target - 3*(std)*np.sqrt((weight/(2-weight)) * (1-(1-weight)**(2*i))))
             ucl.append(target + 3*(std)*np.sqrt((weight/(2-weight)) * (1-(1-weight)**(2*i))))
 
-        ax.plot([0, len(ewma)], [target, target], 'k-')
-        ax.plot(lcl, 'r:')
-        ax.plot(ucl, 'r:')
-        ax.plot(ewma, 'bo-')
-        ax.set_title(self.__class__.__name__.upper())
-                        
+#        ax.plot([0, len(ewma)], [target, target], 'k-')
+#        ax.plot(lcl, 'r:')
+#        ax.plot(ucl, 'r:')
+#        ax.plot(ewma, 'bo--')
+        
+        self.elements(ax, ewma, elements=[lcl, target, ucl])
         return (ewma, target, lcl, ucl)

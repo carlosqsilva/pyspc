@@ -1,4 +1,20 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/python3
+#
+#Copyright (C) 2016  Carlos Henrique Silva <carlosqsilva@outlook.com>
+#
+#This library is free software: you can redistribute it and/or modify
+#it under the terms of the GNU General Public License as published by
+#the Free Software Foundation, either version 3 of the License, or
+#(at your option) any later version.
+#
+#This library is distributed in the hope that it will be useful,
+#but WITHOUT ANY WARRANTY; without even the implied warranty of
+#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#GNU General Public License for more details.
+#
+#You should have received a copy of the GNU General Public License
+#along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 from .ccharts import ccharts
 import numpy
 
@@ -8,7 +24,7 @@ class np(ccharts):
         
         self.size = size - 1
     
-    def plot(self, ax, data, size):
+    def plot(self, ax, data, size, newdata=None):
         
         sizes, data = data.T        
         if self.size == 1:
@@ -23,12 +39,11 @@ class np(ccharts):
         lcl = pbar - 3*numpy.sqrt(pbar*(1 - p))
         ucl = pbar + 3*numpy.sqrt(pbar*(1 - p))
     
-        ax.plot([0, len(data)], [pbar, pbar], 'k-')
-        ax.plot([0, len(data)], [lcl, lcl], 'r:')
-        ax.plot([0, len(data)], [ucl, ucl], 'r:')
-        ax.plot(data, 'bo-')
+#        ax.plot([0, len(data)], [pbar, pbar], 'k-')
+#        ax.plot([0, len(data)], [lcl, lcl], 'r:')
+#        ax.plot([0, len(data)], [ucl, ucl], 'r:')
+#        ax.plot(data, 'bo--')
         
-        ax.set_title(self.__class__.__name__.upper())
-        
+        self.elements(ax, data, elements=[lcl, pbar, ucl])
         return (data, pbar, lcl, ucl)
         

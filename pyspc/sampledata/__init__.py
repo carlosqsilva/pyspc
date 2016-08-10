@@ -25,3 +25,13 @@ canjuice = pd.read_csv(os.path.join(_ROOT, 'canjuice.csv')).values
 circuits = pd.read_csv(os.path.join(_ROOT, 'circuits.csv')).values
 
 inspection = pd.read_csv(os.path.join(_ROOT, 'inspection.csv')).values
+
+PaintMaterial = pd.read_csv(os.path.join(_ROOT, 'PaintMaterial.csv')).values
+
+Thickness = pd.read_csv(os.path.join(_ROOT, 'thickness.csv')).values
+
+viscosidade = pd.read_csv(os.path.join(_ROOT, 'Viscosidade.csv')).values
+
+plastic = pd.read_csv(os.path.join(_ROOT, 'hotelling.csv')).values
+
+experiment = pd.read_csv(os.path.join(_ROOT, 'experiment.csv')).values

@@ -1,4 +1,20 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/python3
+#
+#Copyright (C) 2016  Carlos Henrique Silva <carlosqsilva@outlook.com>
+#
+#This library is free software: you can redistribute it and/or modify
+#it under the terms of the GNU General Public License as published by
+#the Free Software Foundation, either version 3 of the License, or
+#(at your option) any later version.
+#
+#This library is distributed in the hope that it will be useful,
+#but WITHOUT ANY WARRANTY; without even the implied warranty of
+#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#GNU General Public License for more details.
+#
+#You should have received a copy of the GNU General Public License
+#along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 from .ccharts import ccharts
 import numpy as np
 
@@ -8,7 +24,7 @@ class p(ccharts):
         
         self.size = size - 1
     
-    def plot(self, ax, data, size):
+    def plot(self, ax, data, size, newdata=None):
         
         sizes, data = data.T        
         if self.size == 1:
@@ -23,17 +39,13 @@ class p(ccharts):
         
         if np.mean(sizes) == sizes[0]:
             size = sizes[0]
-            
             lcl = pbar - 3*np.sqrt((pbar*(1 - pbar))/size)
             ucl = pbar + 3*np.sqrt((pbar*(1 - pbar))/size)
             
             if lcl < 0: lcl = 0                
             if ucl > 1: ucl = 1
-            
-            ax.plot([0, len(data2)], [pbar, pbar], 'k-')
-            ax.plot([0, len(data2)], [lcl, lcl], 'r:')
-            ax.plot([0, len(data2)], [ucl, ucl], 'r:')
-            ax.plot(data2, 'bo-')
+                
+            self.elements(ax, data2, elements=[lcl, pbar, ucl])
             
         else:
             lcl, ucl = [], []
@@ -41,10 +53,6 @@ class p(ccharts):
                 lcl.append(pbar - 3*np.sqrt((pbar*(1 - pbar))/size))
                 ucl.append(pbar + 3*np.sqrt((pbar*(1 - pbar))/size))
                             
-            ax.plot([0, len(data2)], [pbar, pbar], 'k-')
-            ax.step(lcl, 'r', where='mid')
-            ax.step(ucl, 'r', where='mid')
-            ax.plot(data2, 'bo-')
-        
-        ax.set_title(self.__class__.__name__.upper())
+            self.elements(ax, data2, elements=[lcl, pbar, ucl])
+            
         return (data2, pbar, lcl, ucl)

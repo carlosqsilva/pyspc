@@ -16,33 +16,39 @@
 #along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from .ccharts import ccharts
+from .tables import B3, B4
 import numpy as np
 
-class c(ccharts):
-    def __init__(self, size = 1):
-        super(c, self).__init__()
+class I_MR_STD(ccharts):
+    def __init__(self, sizecol = 1):
+        super(I_MR_STD, self).__init__()
         
-        self.size = size - 1
+        self.size = sizecol - 1
     
     def plot(self, ax, data, size, newdata=None):
         
         sizes, data = data.T        
         if self.size == 1:
             sizes, data = data, sizes
-            
-        # the samples must have the same size for this charts
-        assert np.mean(sizes) == sizes[0]
         
-        cbar = np.mean(data)
+        samples = dict()
+        for n, value in zip(sizes, data):
+            if n in samples:
+                samples[n].append(value)
+            else:
+                samples[n] = [value]
+                
+        sample_size = len(samples[1])
+#        num_samples = len(samples)
         
-        lcl = cbar - 3*np.sqrt(cbar)
-        ucl = cbar + 3*np.sqrt(cbar)
-#        
-#        ax.plot([0, len(data)], [cbar, cbar], 'k-')
-#        ax.plot([0, len(data)], [lcl, lcl], 'r:')
-#        ax.plot([0, len(data)], [ucl, ucl], 'r:')
-#        ax.plot(data, 'bo-')
+        sample_std = []
+        for key in samples:
+            assert sample_size == len(samples[key])
+            sample_std.append(np.std(samples[key], ddof=1))
+                        
+        sbar = np.mean(sample_std)
+        ucl_std = B4[sample_size] * sbar
+        lcl_std = B3[sample_size] * sbar
         
-        self.elements(ax, data, elements=[lcl, cbar, ucl])
-        return (data, cbar, lcl, ucl)
-        
+        self.elements(ax, sample_std, elements=[lcl_std, sbar, ucl_std])
+        return (sample_std, sbar, lcl_std, ucl_std)

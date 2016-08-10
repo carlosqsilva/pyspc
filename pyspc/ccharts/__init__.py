@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from .xbar import xbar
-from .rbar import rbar
 from .cusum import cusum
-from .sbar import sbar
 from .ewma import ewma
-from .xmr import xmr
-from .xbar_mr import xbar_mr
+from .mr import mr, xmr
+from .xbar_sbar import xbar_sbar, sbar
+from .xbar_rbar import xbar_rbar, rbar
+from .imrx import I_MR_X
+from .imrr import I_MR_R
+from .imrmr import I_MR_MR
+from .imrstd import I_MR_STD
+from .multivariate import hotelling, variation
 from .np import np
 from .p import p
 from .c import c

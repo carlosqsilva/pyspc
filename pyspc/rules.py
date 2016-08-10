@@ -1,16 +1,32 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/python3
+#
+#Copyright (C) 2016  Carlos Henrique Silva <carlosqsilva@outlook.com>
+#
+#This library is free software: you can redistribute it and/or modify
+#it under the terms of the GNU General Public License as published by
+#the Free Software Foundation, either version 3 of the License, or
+#(at your option) any later version.
+#
+#This library is distributed in the hope that it will be useful,
+#but WITHOUT ANY WARRANTY; without even the implied warranty of
+#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#GNU General Public License for more details.
+#
+#You should have received a copy of the GNU General Public License
+#along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 from .pyspc import spc
 
 class rules(object):
     
-    def __init__(self, rules = 1):
+    def __init__(self, rules = 'BASIC'):
         self.layers = self
         self.rules = rules
         
         # default : BASIC
-        if rules == 1:
-            self.rules = [self.RULE_1_BEYOND_3SIGMA,
-                          self.RULE_7_ON_ONE_SIDE]
+        if rules.lower() == 'basic':
+            self.rules = [self.RULE_7_ON_ONE_SIDE,
+                          self.RULE_1_BEYOND_3SIGMA]
         # WECO
 #        if rules == 2:
 #            self.rules = [self.RULES_1_BEYOND_3SIGMA,
@@ -34,48 +50,48 @@ class rules(object):
                 return False
         return True
         
+    def test_beyond_limits(self, value, lcl, ucl):
+        return value > ucl or value < lcl
         
     def RULE_1_BEYOND_3SIGMA(self, ax, values, center, lcl, ucl):
-        #points = []
-        for i in range(len(values)):
-            if values[i] > ucl or values[i] < lcl:
-                ax.plot([i], values[i], 'ro')
-                #points.append(i)
-        #return points
+        points = []
+        if isinstance(lcl, list) and isinstance(ucl, list):
+            for i, value in enumerate(values):
+                if self.test_beyond_limits(value, lcl[i], ucl[i]):
+                    ax.plot([i], value, 'ro')
+                    points.append(i)
+                    
+        elif isinstance(values[0], list):
+            for i in range(len(values)):
+                for j, value in enumerate(values[i]):
+                    if self.test_beyond_limits(value, lcl, ucl):
+                        ax.plot([j], value, 'ro')
+                        points.append(j)
+        else:
+            for i in range(len(values)):
+                if self.test_beyond_limits(values[i], lcl, ucl):
+                    ax.plot([i], values[i], 'ro')
+                    points.append(i)
+        
+        return points
         
     def RULE_7_ON_ONE_SIDE(self, ax, values, center, lcl, ucl):
-        #points = []
+        points = []
+        if isinstance(lcl, list) or isinstance(values[0], list):
+            return  []  
+        
         num = 7
         for i in range(len(values)):
             if i <= (num - 1):
                 continue
             if self.test_violating_runs(values[i - num+1:i + 1], center, lcl, ucl):
                 ax.plot([i], values[i], 'yo')
-                #points.append(i)
-        #return points
+                points.append(i)
         
+        return points
         
     def plot_violation_points(self, ax, values, center, lcl, ucl):
         violating_points = []
         for func in self.rules:
-            violating_points.append(func(ax, values, center, lcl, ucl))
-#        return violating_points
-        
-        
-#    def plot(self, ax, values, center, lcl, ucl):
-#        
-#        violation_points = self.find_violating_points(values, center, lcl, ucl)
-#        colors = ['ro', 'yo']
-#        
-#        for color in colors:
-#            for points in violation_points:
-#                ax.plot
-#                
-#        
-#        
-#        if RULES_7_ON_ONE_SIDE in self.violating_points:
-#            for i in self.violating_points[RULES_7_ON_ONE_SIDE]:
-#                ax.plot([i], [self._data[i]], "yo")
-#        if RULES_1_BEYOND_3SIGMA in self.violating_points:
-#            for i in self.violating_points[RULES_1_BEYOND_3SIGMA]:
-#                ax.plot([i], [self._data[i]], "ro")
+            violating_points += func(ax, values, center, lcl, ucl)
+        return list(set(violating_points))
