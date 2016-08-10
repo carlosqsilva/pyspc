@@ -58,3 +58,5 @@ coverage.xml
 
 # Spyder project settings
 .spyderproject
+
+.idea/
