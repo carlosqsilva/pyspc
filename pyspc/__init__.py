@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 #
 #Copyright (C) 2016  Carlos Henrique Silva <carlosqsilva@outlook.com>
 #
@@ -18,22 +18,24 @@
 from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 __version__ = '0.2.1'
+__author__ = "Carlos Silva"
+__email__ = "carlosqsilva@outlook.com"
 
 import warnings
 warnings.simplefilter("ignore")
 
 # For testing purposes we might need to set mpl backend before any
 # other import of matplotlib.
-def _set_mpl_backend():
-    import os
-    import matplotlib as mpl
+# def _set_mpl_backend():
+#     import os
+#     import matplotlib as mpl
 
-    env_backend = os.environ.get('MATPLOTLIB_BACKEND')
-    if env_backend:
-        # we were instructed
-        mpl.use(env_backend)
+#     env_backend = os.environ.get('MATPLOTLIB_BACKEND')
+#     if env_backend:
+#         # we were instructed
+#         mpl.use(env_backend)
 
-_set_mpl_backend()
+#_set_mpl_backend()
 
 
 from .ccharts import *

@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 #
 #Copyright (C) 2016  Carlos Henrique Silva <carlosqsilva@outlook.com>
 #
@@ -58,19 +58,19 @@ class rules(object):
         if isinstance(lcl, list) and isinstance(ucl, list):
             for i, value in enumerate(values):
                 if self.test_beyond_limits(value, lcl[i], ucl[i]):
-                    ax.plot([i], value, 'ro')
+                    ax.plot([i], value, 'ro', markersize=5)
                     points.append(i)
                     
         elif isinstance(values[0], list):
             for i in range(len(values)):
                 for j, value in enumerate(values[i]):
                     if self.test_beyond_limits(value, lcl, ucl):
-                        ax.plot([j], value, 'ro')
+                        ax.plot([j], value, 'ro', markersize=5)
                         points.append(j)
         else:
             for i in range(len(values)):
                 if self.test_beyond_limits(values[i], lcl, ucl):
-                    ax.plot([i], values[i], 'ro')
+                    ax.plot([i], values[i], 'ro', markersize=5)
                     points.append(i)
         
         return points
@@ -78,14 +78,14 @@ class rules(object):
     def RULE_7_ON_ONE_SIDE(self, ax, values, center, lcl, ucl):
         points = []
         if isinstance(lcl, list) or isinstance(values[0], list):
-            return  []  
+            return  points
         
         num = 7
         for i in range(len(values)):
             if i <= (num - 1):
                 continue
             if self.test_violating_runs(values[i - num+1:i + 1], center, lcl, ucl):
-                ax.plot([i], values[i], 'yo')
+                ax.plot([i], values[i], 'yo', markersize=5)
                 points.append(i)
         
         return points

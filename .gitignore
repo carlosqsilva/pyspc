@@ -58,5 +58,6 @@ coverage.xml
 
 # Spyder project settings
 .spyderproject
+.spyderworkspace
 
-.idea/
+dev_tests.py

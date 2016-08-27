@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 #
 #Copyright (C) 2016  Carlos Henrique Silva <carlosqsilva@outlook.com>
 #
@@ -30,6 +30,7 @@ setup(name='pyspc',
       package_data={
       "pyspc": ["sampledata/*.csv"]},
       install_requires=['pandas', 'matplotlib', 'numpy', 'scipy'],
+      test_suite="tests",
       keywords='SPC QCC CEQ CEP UEPA',
       classifiers=[
       'Development Status :: 4 - Beta',

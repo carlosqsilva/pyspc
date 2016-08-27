@@ -1,11 +1,11 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 from pyspc import *
 
 a = spc(pistonrings) + cusum() + ewma() + rules()
-print(a)
+#print(a)
 b = spc(pistonrings) + xbar_sbar() + sbar() + rules()
-print(b)
+#print(b)
 c = spc(viscosidade) + imr()+ xmr() + cusum() +rules()
-print(c)
+#print(c)
 d = spc(plastic) + hotelling() + variation() + rules()
-print(d)
+#print(d)
