@@ -9,7 +9,7 @@ from .imrx import I_MR_X
 from .imrr import I_MR_R
 from .imrmr import I_MR_MR
 from .imrstd import I_MR_STD
-from .multivariate import hotelling, variation
+from .multivariate import Tsquare_single, Tsquare
 from .np import np
 from .p import p
 from .c import c

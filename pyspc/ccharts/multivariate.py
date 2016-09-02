@@ -15,11 +15,34 @@
 
 from .ccharts import ccharts
 from.tables import B3, B4
-from scipy.stats import beta
+from scipy.stats import beta, f
 import numpy as np
 
 
-class hotelling(ccharts):
+def cova(mat):
+
+    l, _ = mat.shape
+    for i in range(1, l):
+        cov = np.hstack((np.array([]), mat.diagonal(i)))
+    return cov
+
+
+def var_cov(var, s):
+
+    varmean = var.mean(axis=0)
+    smean = s.mean(axis=0)
+    n = len(varmean)
+    mat = np.zeros(shape=(n, n)) + np.diag(varmean)
+
+    a, b = 0, n - 1
+    for i in range(1, n):
+        mat = mat + np.diag(smean[a:b], k=i) + np.diag(smean[a:b], k=-i)
+        a, b = b, (b + (b - 1))
+
+    return mat
+
+
+class Tsquare_single(ccharts):
 
     _title = "T-square Hotelling Chart"
 
@@ -46,49 +69,74 @@ class hotelling(ccharts):
         return (values, center, lcl, ucl, self._title)
 
 
-class variation(ccharts):
+class Tsquare(ccharts):
 
-    _title = ""
+    _title = "T-square Hotelling Chart"
 
     def plot(self, data, size, newdata=None):
 
-        mean = np.mean(data, axis=0)
-        std = np.std(data, axis=0, ddof=1)
-        svalues = []
-        for sample in data:
-            value = []
-            for i in range(size):
-                value.append((sample[i] - mean[i]) / std[i])
-            a = sum([x * x for x in value])
-            b = np.mean(value)
-            s = np.sqrt((a - 3 * (b * b)) / 2)
-            svalues.append(s)
+        sizes = data[:, 0]
+        sample = data[:, 1:]
 
-        sbar = np.mean(svalues)
-        lcl = B3[size + 1] * sbar
-        ucl = B4[size + 1] * sbar
+        samples = dict()
+        for n, value in zip(sizes, sample):
+            if n in samples:
+                samples[n] = np.vstack([samples[n], value])
+            else:
+                samples[n] = value
 
-        return (svalues, sbar, lcl, ucl, self._title)
+        m = len(samples.keys())
+        n = len(samples[1])
+        p = len(samples[1].T)
 
-# class hotelling2(ccharts):
+        variance, S = [], []
+        for i in range(m):
+            mat = np.cov(samples[i + 1].T, ddof=1)
+            variance.append(mat.diagonal())
+            S.append(cova(mat))
 
-#     def plot(self, ax, data, size):
+        variance, S = np.array(variance), np.array(S)
 
-#         data = np.array(data)
-#         sizes = data[:,0]
-#         sample = data[:,1:]
+        means = np.array([samples[xs + 1].mean(axis=0) for xs in range(m)])
+        means_total = means.mean(axis=0)
 
-#         samples = dict()
-#         for n, value in zip(sizes, sample):
-#             if n in samples:
-#                 samples[n].append(value)
-#             else:
-#                 samples[n] = [value]
+        Smat = var_cov(variance, S)
+        Smat_inv = np.linalg.inv(Smat)
 
-#         square = np.array([np.var(xs, ddof=1, axis=0) for xs in samples.values()])
-#         print(square)
+        values = []
+        for i in range(m):
+            a = means[i] - means_total
+            values.append(5 * a @ Smat_inv @ a.T)
 
-# class variation2(ccharts):
+        p1 = (p * (m - 1) * (n - 1))
+        p2 = (m * n - m - p + 1)
+        lcl = (p1 / p2) * f.ppf(0.00135, p, p2)
+        center = (p1 / p2) * f.ppf(0.50, p, p2)
+        ucl = (p1 / p2) * f.ppf(0.99865, p, p2)
 
-#     def plot(self, ax, data, size):
-#         pass
+        return (values, center, lcl, ucl, self._title)
+
+
+# class variation(ccharts):
+
+#     _title = ""
+
+#     def plot(self, data, size, newdata=None):
+
+#         mean = np.mean(data, axis=0)
+#         std = np.std(data, axis=0, ddof=1)
+#         svalues = []
+#         for sample in data:
+#             value = []
+#             for i in range(size):
+#                 value.append((sample[i] - mean[i]) / std[i])
+#             a = sum([x * x for x in value])
+#             b = np.mean(value)
+#             s = np.sqrt((a - 3 * (b * b)) / 2)
+#             svalues.append(s)
+
+#         sbar = np.mean(svalues)
+#         lcl = B3[size + 1] * sbar
+#         ucl = B4[size + 1] * sbar
+
+#         return (svalues, sbar, lcl, ucl, self._title)
