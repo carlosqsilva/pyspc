@@ -15,6 +15,7 @@
 
 from .ccharts import ccharts
 import numpy as np
+from .tables import h4
 
 
 class ewma(ccharts):
@@ -63,3 +64,43 @@ class ewma(ccharts):
 #        ax.plot(ewma, 'bo--')
 
         return (ewma, target, lcl, ucl, self._title)
+
+class mewma(ccharts):
+
+    _title = "MEWMA Chart"
+
+    def __init__(self, lambd=0.1):
+        super(mewma, self).__init__()
+
+        self.lambd = lambd
+
+    def plot(self, data, size, newdata=None):
+
+        nrow, ncol = data.shape
+        mean = data.mean(axis=0)
+
+        v = np.zeros(shape=(nrow - 1, ncol))
+        for i in range(nrow - 1):
+            v[i] = data[i + 1] - data[i]
+
+        vv = v.T @ v
+
+        s = np.zeros(shape=(ncol, ncol))
+        for i in range(ncol):
+            s[i] = (1 / (2 * (nrow - 1))) * (vv[i])
+
+        mx = data - mean
+
+        z = np.zeros(shape=(nrow + 1, ncol))
+        for i in range(nrow):
+            z[i + 1] = self.lambd * mx[i] + (1 - self.lambd) * z[i]
+        z = z[1:, :]
+
+        t2 = [] # values
+        for i in range(nrow):
+            w = (self.lambd / (2 - self.lambd)) * (1 - (1 - self.lambd)**(2 * (i + 1)))
+            inv = np.linalg.inv(w * s)
+            t2.append((z[i].T @ inv) @ z[i])
+
+        ucl = h4[int(self.lambd * 10) - 1][ncol - 1]
+        return(t2, 0, 0, ucl, self._title)

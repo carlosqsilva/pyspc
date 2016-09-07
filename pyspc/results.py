@@ -73,7 +73,10 @@ class PlotCharts(object):
         ylim = ax.get_ylim()
         factor = 0.2
         new_ylim = (ylim[0] + ylim[1]) / 2 + np.array((-0.5, 0.5)) * (ylim[1] - ylim[0]) * (1 + factor)
-        ax.set_ylim(new_ylim)
+        if lcl == 0:
+            ax.set_ylim([0, new_ylim[1]])
+        else:
+            ax.set_ylim(new_ylim)
 
         # Change x ticks
         new_xlim = [0, num]

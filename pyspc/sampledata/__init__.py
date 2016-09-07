@@ -35,3 +35,5 @@ viscosidade = pd.read_csv(os.path.join(_ROOT, 'Viscosidade.csv')).values
 plastic = pd.read_csv(os.path.join(_ROOT, 'hotelling.csv')).values
 
 experiment = pd.read_csv(os.path.join(_ROOT, 'experiment.csv')).values
+
+mewma_example = pd.read_csv(os.path.join(_ROOT, 'dados.csv')).values

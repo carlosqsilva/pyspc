@@ -31,7 +31,7 @@ mpl.rcParams['lines.markersize'] = 4
 
 class spc(object):
 
-    _title = 'SPC : Statistical Process Control for humans'
+    _title = 'SPC : Statistical Process Control Charts for Humans'
 
     def __init__(self, data=None, newdata=None):
 

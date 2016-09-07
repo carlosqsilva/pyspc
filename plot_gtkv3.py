@@ -38,6 +38,7 @@ control_charts = {"Cusum": [cusum],
                   "Rbar": [xbar_rbar, rbar],
                   "T-Square Single": [Tsquare_single],
                   "T-Square": [Tsquare],
+                  "MEWMA": [mewma],
                   "Moving Range": [xmr, mr],
                   "C Chart": [c],
                   "NP Chart": [np],
@@ -172,9 +173,8 @@ class main(Gtk.Window):
         toolbar.insert(Gtk.SeparatorToolItem(), 1)
 
         charts_store = Gtk.ListStore(str)
-        charts = ["Cusum", "Ewma", "Sbar", "Rbar", "T-Square Single", "T-Square", "C Chart",
-                  "NP Chart", "P Chart", "U Chart", "Moving Range", "I-MR-R",
-                  "I-MR-S"]
+        charts = ["Cusum", "Ewma", "Sbar", "Rbar", "T-Square Single", "T-Square", "MEWMA", "C Chart",
+                  "NP Chart", "P Chart", "U Chart", "Moving Range", "I-MR-R", "I-MR-S"]
         for chart in charts:
             charts_store.append([chart])
 

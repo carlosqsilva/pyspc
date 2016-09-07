@@ -17,7 +17,7 @@
 
 from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
-__version__ = '0.3.1'
+__version__ = '0.4'
 __author__ = "Carlos Silva"
 __email__ = "carlosqsilva@outlook.com"
 
