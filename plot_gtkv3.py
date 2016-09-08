@@ -151,7 +151,7 @@ class main(Gtk.Window):
         self.win = Gtk.Window()
         self.set_border_width(4)
         self.set_position(Gtk.WindowPosition.CENTER)
-        self.set_title("SPC : Statistical Process Control for humans")
+        self.set_title("PySpc : Statistical Process Control Charts for Humans")
         self.set_default_size(480, 600)
         self.connect("delete-event", Gtk.main_quit)
 
