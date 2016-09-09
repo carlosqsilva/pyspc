@@ -65,7 +65,7 @@ print(a)
 Its also available a python gui application for those who do not like to mess with code.
 
 ```bash
-python3 pyspc_gui.py
+$ python3 pyspc_gui.py
 ```
 ![alt text](screenshots/4-screen.png "Gui Application")
 
