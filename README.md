@@ -33,22 +33,21 @@ from pyspc import *
 a = spc(pistonrings) + ewma()
 print(a)
 ```
-
-![alt text](screenshots/1-screen.png "My First Chart")
+<img src="https://github.com/carlosqsilva/pyspc/blob/master/screenshots/1-screen.png" align="center" height="400" width="450">
 
 adding rules highlighting...
 ```python
 a + rules()
 ```
 
-![alt text](screenshots/2-screen.png "With Basic Rules")
+<img src="https://github.com/carlosqsilva/pyspc/blob/master/screenshots/2-screen.png" align="center" height="400" width="450">
 
 adding more control charts to the mix...
 ```python
 a + cusum() + xbar_sbar() + sbar()
 ``` 
 
-![alt text](screenshots/3-screen.png "More Control Charts...")
+<img src="https://github.com/carlosqsilva/pyspc/blob/master/screenshots/3-screen.png" align="center" height="400" width="450">
 
 it comes with 18 sample datasets to play with, available in **./pyspc/sampledata**, you can use your own data (of course). Your data can be nested lists, numpy array or pandas DataFrame.
 ```python
@@ -59,7 +58,7 @@ a = spc(fake_data) + xbar_rbar() + rbar() + rules()
 print(a)
 ```
 
-![alt text](screenshots/5-screen.png "input data example")
+<img src="https://github.com/carlosqsilva/pyspc/blob/master/screenshots/5-screen.png" align="center" height="400" width="450">
 
 ## Gtk Gui
 Its also available a python gui application for those who do not like to mess with code.
@@ -67,5 +66,5 @@ Its also available a python gui application for those who do not like to mess wi
 ```bash
 $ python3 pyspc_gui.py
 ```
-![alt text](screenshots/4-screen.png "Gui Application")
+<img src="https://github.com/carlosqsilva/pyspc/blob/master/screenshots/4-screen.png" align="center" height="400" width="450">
 
