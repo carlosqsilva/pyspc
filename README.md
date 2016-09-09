@@ -52,7 +52,7 @@ adding more control charts to the mix...
 a + cusum() + xbar_sbar() + sbar()
 ``` 
 
-<img src="https://github.com/carlosqsilva/pyspc/blob/master/screenshots/3-screen.png" align="center" height="400" width="450">
+<img src="https://github.com/carlosqsilva/pyspc/blob/master/screenshots/3-screen.png" align="center" height="500" width="450">
 
 it comes with 18 sample datasets to play with, available in **./pyspc/sampledata**, you can use your own data (of course). Your data can be nested lists, numpy array or pandas DataFrame.
 ```python
