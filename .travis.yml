@@ -10,6 +10,9 @@ install:
 # command to run tests
 script: python ./tests/pyspc_test.py
 
+notifications:
+  email: false
+
 branches:
   only:
     - master
