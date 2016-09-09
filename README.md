@@ -1,4 +1,6 @@
 # PySpc
+[![PyPI version](https://badge.fury.io/py/pyspc.svg)](https://badge.fury.io/py/pyspc)
+
 Statistical Process Control Charts Library for Humans
 
 PySpc is a Python library aimed to make Statistical Process Control Charts as easy as possible.
