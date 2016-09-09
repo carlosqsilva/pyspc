@@ -66,5 +66,4 @@ Its also available a python gui application for those who do not like to mess wi
 ```bash
 $ python3 pyspc_gui.py
 ```
-<img src="https://github.com/carlosqsilva/pyspc/blob/master/screenshots/4-screen.png" align="center" height="400" width="450">
-
+![alt text](screenshots/4-screen.png "Gui Application")
