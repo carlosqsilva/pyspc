@@ -46,11 +46,11 @@ a + rules()
 adding more control charts to the mix...
 ```python
 a + cusum() + xbar_sbar() + sbar()
-```
+``` 
 
 ![alt text](screenshots/3-screen.png "More Control Charts...")
 
-it comes with 18 sample datasets to play with, available in *./pyspc/sampledata*, you can use your own data (of course). Your data can be nested lists, numpy array or pandas DataFrame.
+it comes with 18 sample datasets to play with, available in **./pyspc/sampledata**, you can use your own data (of course). Your data can be nested lists, numpy array or pandas DataFrame.
 ```python
 import numpy
 from pyspc import *
