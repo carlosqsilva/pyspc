@@ -26,6 +26,11 @@ Multivariate Control Charts
 * T Square Hotelling with SubGroup
 * Multivariate Exponentially Weighted Moving Average (MEWMA)
 
+##Installation
+```bash
+$ pip install pyspc
+```
+
 ## Usage
 ```python
 from pyspc import *
