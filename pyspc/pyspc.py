@@ -15,8 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
+# from __future__ import (absolute_import, division, print_function,
+#                         unicode_literals)
 from .results import PlotCharts
 
 import matplotlib.pyplot as plt
@@ -70,23 +70,23 @@ class spc(object):
             return self.subplots[0]
         return self.subplots
 
-    def save(self, filename, **kargs):
+    def save(self, filename, **kwargs):
         if len(self.summary) == 0:
             self.make()
 
-        self.fig.savefig(filename, **kargs)
+        self.fig.savefig(filename, **kwargs)
 
     def drop(self, *args):
         self.data = np.delete(self.data, args, axis=0)
 
-    def make(self):
+    def make(self, **kwargs):
 
         num_layers = len(self.layers)
         if num_layers == 0:
             plt.show()
             return
 
-        self.fig, *self.subplots = plt.subplots(num_layers)
+        self.fig, *self.subplots = plt.subplots(num_layers, **kwargs)
         self.fig.canvas.set_window_title(self._title)
 
         for layer, ax in zip(self.layers, self.get_subplots()):
