@@ -26,7 +26,7 @@ class c(ccharts):
 
         self.size = size - 1
 
-    def plot(self, ax, data, size, newdata=None):
+    def plot(self, data, size, newdata=None):
 
         sizes, data = data.T
         if self.size == 1:

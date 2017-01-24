@@ -44,8 +44,8 @@ control_charts = {"Cusum": [cusum],
                   "NP Chart": [np],
                   "P Chart": [p],
                   "U Chart": [u],
-                  "I-MR-R": [I_MR_X, I_MR_MR, I_MR_R],
-                  "I-MR-S": [I_MR_X, I_MR_MR, I_MR_STD]}
+                  "I-MR-R": [imrx, imrmr, imrr],
+                  "I-MR-S": [imrx, imrmr, imrstd]}
 
 
 class FileDialog(Gtk.Dialog):

@@ -18,12 +18,12 @@ from .tables import D3, D4
 import numpy as np
 
 
-class I_MR_R(ccharts):
+class imrr(ccharts):
 
-    _title = ""
+    _title = "R Chart"
 
     def __init__(self, sizecol=1):
-        super(I_MR_R, self).__init__()
+        super(imrr, self).__init__()
 
         self.size = sizecol - 1
 

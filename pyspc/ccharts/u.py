@@ -31,12 +31,13 @@ class u(ccharts):
         sizes, data = data.T
         if self.size == 1:
             sizes, data = data, sizes
+            print('oi')
 
-        data2 = data / sizes
-        ubar = np.sum(data) / np.sum(sizes)
+        data2 = sizes / data
+        ubar = np.sum(sizes) / np.sum(data)
 
         lcl, ucl = [], []
-        for i in sizes:
+        for i in data:
             lcl.append(ubar - 3 * np.sqrt(ubar / i))
             ucl.append(ubar + 3 * np.sqrt(ubar / i))
 

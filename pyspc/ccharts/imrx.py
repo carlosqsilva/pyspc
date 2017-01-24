@@ -18,12 +18,12 @@ from .tables import d2
 import numpy as np
 
 
-class I_MR_X(ccharts):
+class imrx(ccharts):
 
-    _title = "IMRX"
+    _title = "X Chart"
 
     def __init__(self, sizecol=1):
-        super(I_MR_X, self).__init__()
+        super(imrx, self).__init__()
 
         self.size = sizecol - 1
 

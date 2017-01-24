@@ -117,26 +117,26 @@ class Tsquare(ccharts):
         return (values, center, lcl, ucl, self._title)
 
 
-# class variation(ccharts):
+class variation(ccharts):
 
-#     _title = ""
+    _title = "Generalized Variance"
 
-#     def plot(self, data, size, newdata=None):
+    def plot(self, data, size, newdata=None):
 
-#         mean = np.mean(data, axis=0)
-#         std = np.std(data, axis=0, ddof=1)
-#         svalues = []
-#         for sample in data:
-#             value = []
-#             for i in range(size):
-#                 value.append((sample[i] - mean[i]) / std[i])
-#             a = sum([x * x for x in value])
-#             b = np.mean(value)
-#             s = np.sqrt((a - 3 * (b * b)) / 2)
-#             svalues.append(s)
+        mean = np.mean(data, axis=0)
+        std = np.std(data, axis=0, ddof=1)
+        svalues = []
+        for sample in data:
+            value = []
+            for i in range(size):
+                value.append((sample[i] - mean[i]) / std[i])
+            a = sum([x * x for x in value])
+            b = np.mean(value)
+            s = np.sqrt((a - 3 * (b * b)) / 2)
+            svalues.append(s)
 
-#         sbar = np.mean(svalues)
-#         lcl = B3[size + 1] * sbar
-#         ucl = B4[size + 1] * sbar
+        sbar = np.mean(svalues)
+        lcl = B3[size + 1] * sbar
+        ucl = B4[size + 1] * sbar
 
-#         return (svalues, sbar, lcl, ucl, self._title)
+        return (svalues, sbar, lcl, ucl, self._title)
