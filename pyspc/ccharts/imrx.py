@@ -29,7 +29,7 @@ class imrx(ccharts):
 
     def plot(self, data, size, newdata=None):
 
-        sizes, data = data.T
+        sizes, data = [i for i in range(len(data))], data.T
         if self.size == 1:
             sizes, data = data, sizes
 
