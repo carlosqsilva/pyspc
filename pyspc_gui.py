@@ -174,7 +174,7 @@ class main(Gtk.Window):
 
         charts_store = Gtk.ListStore(str)
         charts = ["Cusum", "Ewma", "Sbar", "Rbar", "T-Square Single", "T-Square", "MEWMA", "C Chart",
-                  "NP Chart", "P Chart", "U Chart", "Moving Range", "I-MR-R", "I-MR-S"]
+                  "NP Chart", "P Chart", "U Chart", "Moving Range", "I-MR-R", "I-MR-S", "Person III"]
         for chart in charts:
             charts_store.append([chart])
 
