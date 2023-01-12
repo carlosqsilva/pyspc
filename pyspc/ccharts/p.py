@@ -32,8 +32,10 @@ class p(ccharts):
         if self.size == 1:
             sizes, data = data, sizes
 
+        # fix error reported by @joseplar in issue #4
+        # make pyspc resulta matched Minitab results
         data2 = data / sizes
-        pbar = np.mean(data2)
+        pbar = np.mean(data)/np.mean(sizes)
 
         for n in sizes:
             assert n * pbar >= 5
